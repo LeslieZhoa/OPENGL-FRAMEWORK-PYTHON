@@ -14,7 +14,7 @@ import pdb
 from shader_function.blur1 import Blur1
 from shader_function.draw import Draw
 
-from shader_function.lut2 import Lut2
+from shader_function.lut3 import Lut3
 
 from shader_function.baseEffect import BaseEffect
 
@@ -49,7 +49,7 @@ class Color1(BaseEffect):
         super().init()
         self.blur = Blur1()
         
-        self.lut2 = Lut2()
+        self.lut3 = Lut3()
 
         self.draw = Draw()
         
@@ -69,9 +69,9 @@ class Color1(BaseEffect):
 
         out = self.do_shader(self.texture[1],self.texture[0],self.draw,False,lmks) 
         
-        # out = self.do_shader(self.texture[2],self.texture[1],self.blur,False)
+        out = self.do_shader(self.texture[2],self.texture[1],self.blur,False)
 
-        out = self.do_shader(self.texture[3],self.texture[1],self.lut2,True)
+        out = self.do_shader(self.texture[3],self.texture[2],self.lut3,True)
 
         out_img = cv2.cvtColor(out, cv2.COLOR_RGBA2BGR)
       

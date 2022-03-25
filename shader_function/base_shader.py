@@ -43,7 +43,7 @@ class BaseShader:
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
 
 
-    # 将坐标传输到gpu上
+    # Transfer coordinates to GPU  将坐标传输到gpu上
     def transform_axis(self,att1,att2,index):
         self.vertexbuffer  = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER,self.vertexbuffer)
@@ -61,24 +61,24 @@ class BaseShader:
 
        
 
-    # 绑定纹理，常量
+    # Binding textures, constants  绑定纹理，常量
     def get_uniform(self,name):
         return glGetUniformLocation(self.shader.program, name)
 
-    # 传输常量
+    # Transmission constant 传输常量
     def bind_constant(self,location,val):
         try:
             glUniform1f(location,val)
         except:
             glUniform1i(location,val)
 
-    # 传输纹理
+    # Transfer texture 传输纹理
     def bind_tex(self,location,val,textureid):
         glActiveTexture(GL_TEXTURE0+val)
         glUniform1i(location, val)
         glBindTexture(GL_TEXTURE_2D, textureid)
 
-    # 传入顶点
+    # Incoming vertex 传入顶点
     def bind_axis(self):
         glEnableVertexAttribArray(0)
         glBindBuffer(GL_ARRAY_BUFFER, self.vertexbuffer)
@@ -89,7 +89,7 @@ class BaseShader:
         glBindBuffer(GL_ARRAY_BUFFER, self.coordBuffer)
         glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,8,None)
 
-    # 绑定图片
+    # Bind picture 绑定图片
     def bind_img(self,img,texture):
         
        
@@ -101,7 +101,7 @@ class BaseShader:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
-    # 输出
+    # output 输出
     def show(self,width,height,returnImage):
         gl_err = glGetError()
         if gl_err != 0:

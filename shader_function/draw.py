@@ -22,9 +22,11 @@ class Draw(BaseShader):
        
 
         # 绑定坐标
-        index = [128,115,120]
-        # self.transform_axis(att1,att2,index)
-        self.transform_axis(self.stand_att1,self.stand_att2,self.stand_index)
+        # index = [128,115,120]
+        # pdb.set_trace()
+
+        self.transform_axis(att1,att2,index)
+        # self.transform_axis(self.stand_att1,self.stand_att2,self.stand_index)
         # glBindFramebuffer(GL_FRAMEBUFFER, outFboId)
         # glDeleteFramebuffers(1,outFboId)
         self.build_shader(width,height,outFboId)

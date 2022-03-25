@@ -40,10 +40,10 @@ void main() {
     vec4 dstColor = inColor;
 
     // first clear (z-order 1200)
-    // if (clearIntensity > 0.0) {
-    //     vec4 clearColor = LUT8x8(dstColor, lutImageForClear);
-    //     dstColor = mix(dstColor, clearColor, clearIntensity);
-    // }
+    if (clearIntensity > 0.0) {
+        vec4 clearColor = LUT8x8(dstColor, lutImageForClear);
+        dstColor = mix(dstColor, clearColor, clearIntensity);
+    }
 
 
     FragColor = dstColor;
