@@ -1,4 +1,6 @@
 ## OPENGL-FRAMEWORK-PYTHON
+[English version](https://github.com/LeslieZhoa/OPENGL-FRAMEWORK-PYTHON/blob/main/ReadMe.md)<br>
+[中文版本](https://github.com/LeslieZhoa/OPENGL-FRAMEWORK-PYTHON/blob/main/ReadMe_chinese.md)
 ### Introduce
 This is a convenient and extensible Python OpenGL framework. You can easily refer to the example shader to realize the custom rendering function
 ### Environmental preparation
