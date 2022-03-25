@@ -25,7 +25,7 @@ def get_lmk(img):
 def convert_lmk(lmks):
     new_lmks = lmks.copy()
     center = new_lmks[30]
-    new_lmks[:18] = 1.25 * new_lmks[:18] - 0.25 * center
+    new_lmks[:18] = 1.2 * new_lmks[:18] - 0.2 * center
     return new_lmks
 
 def add_edge(lmks,h,w):
@@ -151,13 +151,14 @@ def getTriangleList(lmks):
 
     return del_triangles
 
-def draw_triset(img,lmks,triangles):
+def draw_triset(img,lmks,triangles,big=True):
     
-    img = cv2.resize(img,None,fx=4,fy=4)
+    
     h,w,_ = img.shape
-   
-   
-    lmks = lmks.astype(np.int32) * 4
+    lmks = lmks.astype(np.int32)
+    if big:
+        img = cv2.resize(img,None,fx=4,fy=4)
+        lmks = lmks * 4
     tri_set = np.array(triangles, dtype=np.int32)
     
     lmks_min = np.minimum(np.min(lmks,0),np.array([0,0])) 
@@ -173,6 +174,7 @@ def draw_triset(img,lmks,triangles):
         cv2.line(new_img, tuple(lmks[i1]), tuple(lmks[i3]), color, 1)
         cv2.line(new_img, tuple(lmks[i2]), tuple(lmks[i3]), color, 1)
     
-    for i in range(len(lmks)):
-        cv2.putText(new_img,str(i),(int(lmks[i][0]),int(lmks[i][1]-5)),cv2.FONT_HERSHEY_COMPLEX,0.75, (0, 255, 0), 2)
+    if big:
+        for i in range(len(lmks)):
+            cv2.putText(new_img,str(i),(int(lmks[i][0]),int(lmks[i][1]-5)),cv2.FONT_HERSHEY_COMPLEX,0.75, (0, 255, 0), 2)
     return new_img

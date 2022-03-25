@@ -3,6 +3,7 @@ from OpenGL.GL import *  # pylint: disable=W0614
 from OpenGL.GLU import *  # pylint: disable=W0614
 
 import glm
+from matplotlib.pyplot import draw
 from utils.utils import *
 from utils.shaderLoader import Shader
 import numpy as np
@@ -66,11 +67,11 @@ class Color1(BaseEffect):
         # pdb.set_trace()
         self.bind_img(self.width,self.height,self.texture[0],raw_img)
 
-        out = self.do_shader(self.texture[1],self.texture[0],self.draw,True,lmks) 
+        out = self.do_shader(self.texture[1],self.texture[0],self.draw,False,lmks) 
         
-        # out = self.do_shader(self.texture[2],self.texture[0],self.blur,False)
+        # out = self.do_shader(self.texture[2],self.texture[1],self.blur,False)
 
-        # out = self.do_shader(self.texture[3],self.texture[2],self.lut2,True)
+        out = self.do_shader(self.texture[3],self.texture[1],self.lut2,True)
 
         out_img = cv2.cvtColor(out, cv2.COLOR_RGBA2BGR)
       
@@ -94,12 +95,16 @@ if __name__ == "__main__":
 
     img = cv2.cvtColor(cv2.imread(img_path),cv2.COLOR_BGR2RGBA)
     h,w,_ = img.shape
-   
+    # pdb.set_trace()
     src_lmk = add_edge(src_lmk,h,w)
-    target_lmk = add_edge(target_lmk,h,w)
-    src_lmk = src_lmk / np.array([h,w])
-    target_lmk = (target_lmk / np.array([h,w]) - 0.5) * 2
+    # target_lmk = add_edge(target_lmk,h,w)
+    target_lmk = np.concatenate([ target_lmk,src_lmk[81:]],0)
+
     
+    src_lmk = src_lmk / np.array([w,h])
+    target_lmk = (target_lmk / np.array([w,h]) - 0.5) * 2
+
+    target_lmk = np.concatenate([target_lmk,np.zeros((target_lmk.shape[0],1))],-1)
     color_engine = Color1(h,w)
     color_engine.init()
     out_img = color_engine.update(img,[target_lmk.reshape(-1).tolist(),src_lmk.reshape(-1).tolist(),index])
