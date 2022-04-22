@@ -18,6 +18,6 @@ if Unable to load/find OpenGL on MacOS refer to [Link](https://github.com/PixarA
   - Get face key points and triangulation index according to Dlib，thank @codeniko for providing the [key points model](https://github.com/codeniko/shape_predictor_81_face_landmarks) including forehead
 - run.py
   - Main file, main functions: deformation + blur + filter
-### 运行
+### Run
 - `python get_index.py`Get face key points and triangulation index according to Dlib
 - `python run.py`make assets/src.png Deformation + blur + filter to res.png
