@@ -153,12 +153,11 @@ def getTriangleList(lmks):
 
 def draw_triset(img,lmks,triangles,big=True):
     
-    
-    h,w,_ = img.shape
     lmks = lmks.astype(np.int32)
     if big:
         img = cv2.resize(img,None,fx=4,fy=4)
         lmks = lmks * 4
+    h,w,_ = img.shape
     tri_set = np.array(triangles, dtype=np.int32)
     
     lmks_min = np.minimum(np.min(lmks,0),np.array([0,0])) 
